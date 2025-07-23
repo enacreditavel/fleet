@@ -1,0 +1,46 @@
+<div class="bg-fundo-claro box-border w-full h-screen flex justify-center items-center">
+
+  <body class="bg-primary-100 flex w-96 box-border rounded-lg flex-col justify-center items-center gap-10 p-10" >
+    <div class="brand w-ful">
+      <img src="assets/brand.png" alt="Logo" class="logo">
+    </div>
+
+    <section>
+      <h1>Sign in to FleetHub is simply</h1>
+    </section>
+
+    <section class="w-full">
+      <form [formGroup]="loginForm" (ngSubmit)="login()"  class="max-w-sm mx-auto">
+        <div class="mb-5">
+          <finput
+            formControlName="email"
+            t="email"
+            id="email"
+            placeholder="Your Email or CPF"
+          />
+
+        </div>
+        <div class="mb-5">
+          <finput
+            formControlName="password"
+            t="password"
+            id="password"
+            placeholder="Your Password"
+          />
+        </div>
+        <fbutton t="submit" class="w-1/2" label="Entrar" ></fbutton>
+      </form>
+
+      <erro-modal
+        *ngIf="showErrorModal"
+        [errorCode]="errorCode"
+        [errorMessage]="errorMessage"
+        (close)="closeModal()"
+      ></erro-modal>
+
+    </section>
+
+
+  </body>
+
+</div>
