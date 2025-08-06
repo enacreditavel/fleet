@@ -20,7 +20,14 @@
                     </form>
                 </div>
                 <div class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
-
+                  <div class="flex items-center justify-center space-x-3 w-full md:w-auto">
+                    <label class="block text-sm font-medium text-gray-900 dark:text-white">Show:</label>
+                    <select [(ngModel)]="itemsPerPage" (change)="onItemsPerPageChange()" id="itemsPerPage" class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                      <option value="10">10</option>
+                      <option value="25">25</option>
+                      <option value="50">50</option>
+                    </select>
+                  </div>
                   <!-- Filter Button -->
 
                   <div class="flex items-center space-x-3 w-full md:w-auto">
@@ -81,20 +88,25 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="border-b dark:border-gray-700" *ngFor="let item of paginatedUsers">
+                        <tr class="border-b dark:border-gray-700" *ngFor="let item of users">
                             <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{item.id}}</th>
                             <td class="px-4 py-3">{{item.nome}}</td>
                             <td class="px-4 py-3">{{item.email}}</td>
                             <td class="px-4 py-3">{{item.cpf}}</td>
                             <td class="px-4 py-3">{{item.tipo}}</td>
                             <td class="px-4 py-3 flex items-center justify-end">
-                                <button id="dropdown-button" data-dropdown-toggle="dropdown" class="inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100" type="button">
+                                <button [attr.aria-label]="'user-settings' + item.id"
+                                        [id]="'user-settings-dropdown-button-' + item.id"
+                                        [attr.data-dropdown-toggle]="'user-settings-dropdown-' + item.id"
+                                        class="inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-500
+                                               hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100"
+                                        type="button">
                                     <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" />
                                     </svg>
                                 </button>
-                                <div id="dropdown" class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
-                                    <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdown-button">
+                                <div [id]="'user-settings-dropdown-' + item.id" class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
+                                    <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="user-settings-dropdown-button">
                                         <li>
                                             <a href="#" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Show</a>
                                         </li>
@@ -118,11 +130,11 @@
               <span class="text-sm font-normal text-gray-500 dark:text-gray-400">
                 Showing
                 <span class="font-semibold text-gray-900 dark:text-white">
-                  {{ (currentPage - 1) * itemsPerPage + 1 }} -
-                  {{ Math.min(currentPage * itemsPerPage, users.length) }}
+                  {{ (currentPage) * itemsPerPage + 1 }} -
+                  {{ Math.min((currentPage + 1) * itemsPerPage, totalElements) }}
                 </span>
                 of
-                <span class="font-semibold text-gray-900 dark:text-white">{{ users.length }}</span>
+                <span class="font-semibold text-gray-900 dark:text-white">{{ totalElements }}</span>
               </span>
 
               <ul class="inline-flex items-stretch -space-x-px">
@@ -142,12 +154,12 @@
                 </li>
 
                 <!-- Page numbers -->
-                <li *ngFor="let page of [].constructor(Math.ceil(users.length / itemsPerPage)); let i = index">
+                <li *ngFor="let page of [].constructor(Math.ceil(totalElements / itemsPerPage)); let i = index">
                   <a href="#"
-                    (click)="goToPage(i + 1); $event.preventDefault()"
-                    [class.bg-primary-50]="currentPage === i + 1"
-                    [class.text-primary-600]="currentPage === i + 1"
-                    [class.z-10]="currentPage === i + 1"
+                    (click)="goToPage(i); $event.preventDefault()"
+                    [class.bg-indigo-50]="currentPage === i "
+                    [class.text-primary-600.border-red-300]="currentPage === i "
+                    [class.z-10]="currentPage === i "
                     class="flex items-center justify-center text-sm py-2 px-3 leading-tight
                             text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700
                             dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700

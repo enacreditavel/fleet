@@ -29,7 +29,7 @@ export class NewUserComponent {
     this.createForm = this.fb.group({
       tipo: ['', Validators.required],
       nome: ['', Validators.required],
-      cpf: ['', Validators.required],
+      cpf: ['', Validators.required, Validators.pattern(/^\d{11}$/)],
       email: ['', Validators.required],
       senha: ['', Validators.required],
     });

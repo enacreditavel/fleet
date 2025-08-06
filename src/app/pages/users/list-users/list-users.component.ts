@@ -13,18 +13,28 @@ import { initFlowbite } from 'flowbite';
 })
 export class ListUsersComponent {
   Math = Math;
-  users: Users[] | any = [];
-  currentPage = 1;
+  users: Users[] | any[] = [];
+  currentPage = 0;
   itemsPerPage = 10;
+  totalPages = 0;
+  totalElements = 0;
+  pageElements = 0;
+
   constructor(private service: UsersService, private router: Router) {
-    this.service.getUsers().subscribe((data) => (this.users = data));
+    // this.service.getUsers(this.currentPage, this.itemsPerPage).subscribe((data) => (this.users = data));
   }
 
-  get paginatedUsers() {
-    const start = (this.currentPage - 1) * this.itemsPerPage;
-    return this.users.slice(start, start + this.itemsPerPage);
+  loadUsers() {
+    this.service
+      .getUsers(this.currentPage, this.itemsPerPage)
+      .subscribe((data) => {
+        // If data is a single user, wrap it in an array
+        this.users = data.content;
+        this.totalPages = data.page.totalPages;
+        this.totalElements = data.page.totalElements;
+        this.pageElements = data.content.length;
+      });
   }
-
 
   newUser() {
     this.router.navigate(['/users/new']);
@@ -32,27 +42,30 @@ export class ListUsersComponent {
 
   ngOnInit() {
     initFlowbite();
-  }
-
-  get totalPages(): number {
-    return Math.ceil(this.users.length / this.itemsPerPage);
-  }
-
-  goToPage(page: number) {
-    if (page >= 1 && page <= this.totalPages) {
-      this.currentPage = page;
-    }
+    this.loadUsers();
   }
 
   goToPreviousPage() {
-    if (this.currentPage > 1) {
+    if (this.currentPage > 0 && this.currentPage <= this.totalPages) {
       this.currentPage--;
+      this.loadUsers(); // <-- carrega nova página
     }
   }
 
   goToNextPage() {
-    if (this.currentPage < this.totalPages) {
+    if (this.currentPage < this.totalPages - 1) {
       this.currentPage++;
+      this.loadUsers(); // <-- carrega nova página
     }
+  }
+
+  goToPage(page: number) {
+    this.currentPage = page;
+    this.loadUsers(); // <-- carrega nova página
+  }
+
+  onItemsPerPageChange() {
+    this.currentPage = 0; // Reinicia a página ao mudar o tamanho
+    this.loadUsers();
   }
 }
