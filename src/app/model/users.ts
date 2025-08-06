@@ -1,14 +1,15 @@
 import { Endereco } from "./endereco";
 
 export interface Users  {
-  tipo: string;
+  userType: string;
   id?: number;
-  nome: string;
+  name: string;
   cpf: string
   email: string;
-  senha: string;
-  endereco?: Endereco;
+  password: string;
+  adress?: Endereco;
   cnh?: string
-  telefone?: string;
+  phone?: string;
+  job?: string;
 
 };

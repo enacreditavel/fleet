@@ -7,7 +7,6 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrl: './fbutton.component.css',
 })
 export class FbuttonComponent {
-  @Input() label: string = 'Clique';
   @Input() t: 'button' | 'submit' = 'button';
   @Input() disabled: boolean = false;
 

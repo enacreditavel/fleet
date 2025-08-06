@@ -1,1 +1,90 @@
-<p>new-user works!</p>
+<section class="bg-white dark:bg-gray-900">
+  <div class="py-8 px-4 mx-auto max-w-2xl lg:py-16">
+      <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Create a new user</h2>
+      <form [formGroup]="createForm" (ngSubmit)="create()" >
+        <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
+          <div>
+              <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">User Type</label>
+              <select id="tipo" formControlName="tipo" (change)="onTipoUsuarioChange()" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                  <option value="ADMINISTRADOR">ADMIN</option>
+                  <option value="MOTORISTA">DRIVER</option>
+                  <option value="PASSAGEIRO">PASSENGER</option>
+              </select>
+            </div>
+          <div class="w-full" *ngIf="tipo">
+            <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">CPF</label>
+              <finput
+                formControlName="cpf"
+                t="number"
+                id="cpf"
+              />
+          </div>
+          <div class="sm:col-span-2" *ngIf="tipo">
+              <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+              <finput
+                formControlName="nome"
+                t="text"
+                id="name"
+              />
+          </div>
+          <div class="w-full" *ngIf="tipo">
+              <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+              <finput
+                formControlName="email"
+                t="email"
+                id="email"
+              />
+          </div>
+          <div class="w-full" *ngIf="tipo">
+              <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+              <finput
+                formControlName="senha"
+                t="password"
+                id="password"
+              />
+          </div>
+
+          <div class="w-full" *ngIf="tipo === 'MOTORISTA'">
+              <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">CNH</label>
+              <finput
+                formControlName="cnh"
+                t="number"
+                id="cnh"
+              />
+          </div>
+          <div class="w-full" *ngIf="tipo === 'PASSAGEIRO'">
+              <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone</label>
+              <finput
+                formControlName="contato"
+                t="tel"
+                id="contato"
+              />
+          </div>
+          <div class="w-full" *ngIf="tipo === 'ADMINISTRADOR'">
+              <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cargo</label>
+              <finput
+                formControlName="cargo"
+                t="text"
+                id="cargo"
+              />
+          </div>
+        </div>
+        <div class="flex items-center justify-between gap-4 mt-6">
+          <fbutton t="button" (click)="cancel()">
+            Cancel
+          </fbutton>
+
+          <fbutton t="submit">
+            Create user
+          </fbutton>
+        </div>
+      </form>
+
+      <erro-modal
+        *ngIf="showErrorModal"
+        [errorCode]="errorCode"
+        [errorMessage]="errorMessage"
+        (close)="closeModal()"
+      ></erro-modal>
+  </div>
+</section>

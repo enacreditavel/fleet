@@ -19,7 +19,7 @@ export class SidebarComponent {
     this.router.navigate(['dashboard']);
   }
   navigateToUsers() {
-    this.router.navigate(['users']);
+    this.router.navigate(['users/list']);
   }
 
   ngOnInit(): void {

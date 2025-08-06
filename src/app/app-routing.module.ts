@@ -9,7 +9,7 @@ import { NewUserComponent } from './pages/users/new-user/new-user.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent, },
+  { path: 'register', component: RegisterComponent },
   { path: 'logout', redirectTo: 'login', pathMatch: 'full' },
   {
     path: '',
@@ -21,19 +21,19 @@ const routes: Routes = [
       },
       {
         path: 'users',
-        component: ListUsersComponent,
-        children:[
+        children: [
+          {
+            path:'list',
+            component: ListUsersComponent,
+
+          },
           {
             path: 'new',
-            component: NewUserComponent
-          }
+            component: NewUserComponent,
+          },
         ]
       },
-
-
     ],
-
-
   },
   // { path: 'usuarios', component: UsersComponent, canActivate: [AuthGuard] },
   // {
