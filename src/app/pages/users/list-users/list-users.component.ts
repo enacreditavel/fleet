@@ -21,7 +21,6 @@ export class ListUsersComponent {
   pageElements = 0;
 
   constructor(private service: UsersService, private router: Router) {
-    // this.service.getUsers(this.currentPage, this.itemsPerPage).subscribe((data) => (this.users = data));
   }
 
   loadUsers() {

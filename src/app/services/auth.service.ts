@@ -12,7 +12,7 @@ export class AuthService {
   login(email: string, senha: string) {
     return this.http
       .post<{ id: number; token: string; userName: string }>(
-        `${this.baseURL}auth/login`,
+        `${this.baseURL}/auth/login`,
         {
           email,
           senha,

@@ -5,6 +5,8 @@ import {
   NgControl,
 } from '@angular/forms';
 
+
+
 @Component({
   selector: 'finput',
   templateUrl: './finput.component.html',
@@ -24,7 +26,6 @@ export class FinputComponent implements ControlValueAccessor {
   @Input() placeholder = '';
   @Input() required = false;
   @Input() label = '';
-  @Input() mask = '';
   value = '';
   disabled = false;
 
