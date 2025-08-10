@@ -23,10 +23,19 @@ export class UsersService {
     this.baseURL = environment.apiUrl;
   }
 
+  // Método para criar usuário
   postUser(Users: Users): Observable<Users> {
-    return this.http.post<Users>(`${this.baseURL}/auth/register`, Users);
+    console.log(this.headers)
+    return this.http.post<Users>(
+      `${this.baseURL}/auth/register`,
+      Users,
+      {
+      headers: this.headers,
+      }
+    );
   }
 
+  //Método para buscar usuários com paginação
   getUsers(page: number, size: number): Observable<PagedResponse<Users>> {
     this.admData = this.http.get<Users>(
       `${this.baseURL}/usuario?page=${page}&size=${size}`,
@@ -37,6 +46,7 @@ export class UsersService {
     return this.admData;
   }
 
+  // Método para encontrar usuário por ID
   getUserById(idTeste: number): Observable<Users> {
     if (this.id != idTeste.toString()) {
       this.id = idTeste.toString();
@@ -50,5 +60,12 @@ export class UsersService {
     );
     console.log('User data fetched in service:', retorno);
     return retorno;
+  }
+
+  // Método para deletar usuário
+  deleteUser(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.baseURL}/usuario/${id}`, {
+      headers: this.headers,
+    });
   }
 }

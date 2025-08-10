@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 import { Users } from '../../../model/users';
 import { UsersService } from '../../../services/users.service';
-import { initFlowbite } from 'flowbite';
+import { initDropdowns, initFlowbite } from 'flowbite';
 
 @Component({
   selector: 'app-list-users',
@@ -14,15 +14,25 @@ import { initFlowbite } from 'flowbite';
 export class ListUsersComponent {
   Math = Math;
   users: Users[] | any[] = [];
-  currentPage = 0;
-  itemsPerPage = 10;
-  totalPages = 0;
-  totalElements = 0;
-  pageElements = 0;
+  currentPage: number = 0;
+  itemsPerPage: number = 10;
+  totalPages: number = 0;
+  totalElements: number = 0;
+  pageElements: number = 0;
+  deleteId!: number;
+  showDeleteModal: boolean = false;
 
-  constructor(private service: UsersService, private router: Router) {
+  constructor(private service: UsersService, private router: Router) {}
+
+  ngAfterViewInit() {
+    initFlowbite();
   }
 
+  ngOnInit() {
+    this.loadUsers();
+  }
+
+  // Método para carregar os usuários
   loadUsers() {
     this.service
       .getUsers(this.currentPage, this.itemsPerPage)
@@ -35,32 +45,38 @@ export class ListUsersComponent {
       });
   }
 
+  // Método para definir o ID do usuário a ser excluído
+  deleteModal(id: number) {
+    this.showDeleteModal = true;
+    this.deleteId = id;
+  }
+  closeModal() {
+    this.showDeleteModal = false;
+  }
+
+  // Navegação para a página de criação de novo usuário
   newUser() {
     this.router.navigate(['/users/new']);
   }
 
-  ngOnInit() {
-    initFlowbite();
-    this.loadUsers();
-  }
-
+  // Métodos de paginação
   goToPreviousPage() {
     if (this.currentPage > 0 && this.currentPage <= this.totalPages) {
       this.currentPage--;
-      this.loadUsers(); // <-- carrega nova página
+      this.loadUsers();
     }
   }
 
   goToNextPage() {
     if (this.currentPage < this.totalPages - 1) {
       this.currentPage++;
-      this.loadUsers(); // <-- carrega nova página
+      this.loadUsers();
     }
   }
 
   goToPage(page: number) {
     this.currentPage = page;
-    this.loadUsers(); // <-- carrega nova página
+    this.loadUsers();
   }
 
   onItemsPerPageChange() {

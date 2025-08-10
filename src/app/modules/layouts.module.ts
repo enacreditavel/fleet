@@ -4,6 +4,7 @@ import { ErroModalComponent } from '../shared/layouts/erro-modal/erro-modal.comp
 import { NavbarComponent } from '../shared/layouts/navbar/navbar.component';
 import { SidebarComponent } from '../shared/layouts/sidebar/sidebar.component';
 import { FcomponentsModule } from './fcomponents.module';
+import { DeleteModalComponent } from '../shared/layouts/delete-modal/delete-modal.component';
 
 
 
@@ -12,18 +13,16 @@ import { FcomponentsModule } from './fcomponents.module';
     NavbarComponent,
     SidebarComponent,
     ErroModalComponent,
+    DeleteModalComponent,
   ],
-  imports: [
-    CommonModule,
-    FcomponentsModule
-
-  ],
+  imports: [CommonModule, FcomponentsModule],
   exports: [
     NavbarComponent,
     SidebarComponent,
-    ErroModalComponent
+    ErroModalComponent,
+    DeleteModalComponent,
   ],
   providers: [],
-  bootstrap: []
+  bootstrap: [],
 })
 export class LayoutsModule {}

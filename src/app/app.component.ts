@@ -20,5 +20,9 @@ export class AppComponent {
     });
   }
 
+  ngOnInit() {
+    initFlowbite();
+  }
+
 
 }

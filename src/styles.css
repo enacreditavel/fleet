@@ -1,5 +1,157 @@
+@source "..\node_modules\flowbite";
 /* You can add global styles to this file, and also import other style files */
+@tailwind utilities;
 @tailwind base;
 @tailwind components;
-@tailwind utilities;
+@plugin "flowbite/plugin";
+/* Seção para suas classes personalizadas com @apply */
+@layer components {
 
+/* Buttons */
+
+/* Button primary */
+.btn-primary {
+  @apply  flex items-center justify-center
+          rounded-lg px-5 py-2.5
+          bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700
+          text-white text-center font-medium text-sm
+          hover:bg-gradient-to-br
+          focus:ring-4
+          focus:outline-none
+          focus:ring-blue-300
+          dark:focus:ring-blue-800;
+}
+
+/* Button red (cancel, delete) */
+.btn-red {
+  @apply  inline-flex items-center justify-center
+          rounded-lg px-5 py-2.5
+          bg-red-800
+          text-white text-center font-medium text-sm
+          hover:bg-red-900
+          focus:ring-4
+          focus:outline-none
+          focus:ring-red-300
+          dark:focus:ring-red-900
+}
+
+/* Button red outline (cancel, delete) */
+.btn-red-outline {
+  @apply  flex items-center justify-center
+          rounded-lg px-5 py-2.5
+          bg-transparent
+          border border-red-700
+          text-red-700 text-center font-medium text-sm
+          hover:text-white
+          hover:bg-red-800
+          focus:ring-4
+          focus:outline-none
+          focus:ring-red-300
+          dark:border-red-500
+          dark:text-red-500
+          dark:hover:text-white
+          dark:hover:bg-red-600
+          dark:focus:ring-red-900
+}
+
+/* Button Secondary */
+.btn-secondary {
+  @apply  inline-flex items-center justify-center
+          rounded-lg px-5 py-2.5
+          bg-white
+          border border-gray-200
+          text-gray-500 text-center font-medium text-sm
+          hover:bg-gray-100
+          hover:text-primary-700
+          focus:z-10
+          focus:ring-4
+          focus:outline-none
+          focus:ring-gray-200
+          dark:bg-gray-700
+          dark:text-gray-300
+          dark:border-gray-500
+          dark:hover:text-white
+          dark:hover:bg-gray-600
+          dark:focus:ring-gray-600
+}
+
+
+/* Select Secondary */
+.slc-secondary {
+  @apply  flex items-start justify-center
+          rounded-lg px-5 py-2.5
+          bg-white
+          border border-gray-200
+          text-gray-500 text-start font-medium text-base
+          hover:bg-gray-100
+          hover:text-primary-700
+          focus:z-10
+          focus:ring-4
+          focus:outline-none
+          focus:ring-gray-200
+          dark:bg-gray-700
+          dark:text-gray-300
+          dark:border-gray-500
+          dark:hover:text-white
+          dark:hover:bg-gray-600
+          dark:focus:ring-gray-600
+}
+
+/* INPUTS */
+
+/* Input primary*/
+.input-primary {
+  @apply  block
+          text-gray-900 text-sm
+          rounded-lg w-full p-2.5
+          bg-gray-50
+          border-gray-300
+          focus:ring-blue-500
+          focus:border-blue-500
+          dark:bg-gray-700
+          dark:border-gray-600
+          dark:placeholder-gray-400
+          dark:text-white
+          dark:focus:ring-blue-500
+          dark:focus:border-blue-500
+}
+/* Input search*/
+.input-search {
+  @apply  block
+          text-gray-900 text-sm
+          rounded-lg w-full p-2.5 pl-9
+          bg-gray-50
+          border-gray-300
+          focus:ring-blue-500
+          focus:border-blue-500
+          dark:bg-gray-700
+          dark:border-gray-600
+          dark:placeholder-gray-400
+          dark:text-white
+          dark:focus:ring-blue-500
+          dark:focus:border-blue-500
+}
+
+/* Input Invalid*/
+.input-invalid {
+  @apply border-red-500
+}
+
+/* Input Checkbox primary */
+
+.input-checkbox-primary {
+  @apply  w-4 h-4 rounded-sm
+          text-blue-600
+          bg-gray-100
+          border-gray-300
+          focus:ring-2
+          focus:ring-blue-500
+          dark:bg-gray-600
+          dark:border-gray-500
+          dark:ring-offset-gray-700
+          dark:focus:ring-blue-600
+          dark:focus:ring-offset-gray-700;
+
+
+}
+}

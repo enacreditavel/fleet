@@ -13,25 +13,24 @@ import { UsersService } from '../../../services/users.service';
 })
 export class NewUserComponent {
   createForm!: FormGroup;
-  errorMessage = '';
-  showErrorModal = false;
-  errorCode = 0;
+  errorMessage: string = '';
+  showErrorModal: boolean = false;
+  errorCode: number = 0;
 
   constructor(
     private usersService: UsersService,
     private router: Router,
     private fb: FormBuilder
-  ) {
-    initFlowbite();
-  }
+  ) {  }
 
   ngOnInit() {
+    initFlowbite();
     this.createForm = this.fb.group({
-      tipo: ['', Validators.required],
-      nome: ['', Validators.required],
-      cpf: ['', Validators.required, Validators.pattern(/^\d{11}$/)],
-      email: ['', Validators.required],
-      senha: ['', Validators.required],
+      tipo: [''],
+      nome: [''],
+      cpf: [''],
+      email: [''],
+      senha: [''],
     });
   }
 
@@ -40,7 +39,6 @@ export class NewUserComponent {
   }
 
   create() {
-    alert('Form submitted:' + JSON.stringify(this.createForm.value));
 
     if (this.createForm.invalid) {
       this.createForm.markAllAsTouched(); // exibe mensagens de erro
@@ -57,7 +55,11 @@ export class NewUserComponent {
       error: (err) => {
         console.error('Error to create user:', err);
         this.errorCode = err.error.status;
-        this.errorMessage = err.error.message;
+        if (err.error.error){
+          this.errorMessage = err.error.error;
+        }else if (err.error.message){
+          this.errorMessage = err.error.message;
+        }
 
         this.showErrorModal = true;
       },
@@ -79,17 +81,17 @@ export class NewUserComponent {
     if (this.createForm.get('tipo')?.value === 'ADMINISTRADOR') {
       this.createForm.addControl(
         'cargo',
-        this.fb.control('', Validators.required)
+        this.fb.control('')
       );
     } else if (this.createForm.get('tipo')?.value === 'MOTORISTA') {
       this.createForm.addControl(
         'cnh',
-        this.fb.control('', Validators.required)
+        this.fb.control('')
       );
     } else if (this.createForm.get('tipo')?.value === 'PASSAGEIRO') {
       this.createForm.addControl(
         'contato',
-        this.fb.control('', Validators.required)
+        this.fb.control('')
       );
     }
   }
